@@ -3,7 +3,7 @@ Node.js REST API for filtering products as part of the interview with POQ
 
 ## Installation
 
-In order to install dependencies with yarn, run the following:
+In order to install dependencies with npm, run the following:
 
 ```
 npm install
