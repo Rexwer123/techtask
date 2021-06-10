@@ -40,5 +40,5 @@ size | String | Takes a desired size to filter products by
 Example of a URL query:
 
 ```
-/filter?maxprice=20&size=large&highlight=trousers
+/filter?maxprice=20&size=large&highlight=trousers,green
 ```
