@@ -1,5 +1,5 @@
 # techtask
-Node.js REST API for filtering products
+Node.js REST API for filtering products as part of the interview with POQ
 
 ## Installation
 
