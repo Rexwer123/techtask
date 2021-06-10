@@ -13,9 +13,9 @@ module.exports = {
        
         //Dynamically generated logical expressions to be able to handle all possible filter's combinations at once, which decreases the complexity of this function
         const maxpriceMet = filter.maxprice ? product.price <= filter.maxprice : true
-        const size = filter.size ? product.sizes.indexOf(filter.size) > -1 : true
+        const sizeMet = filter.size ? product.sizes.indexOf(filter.size) > -1 : true
         
-        if(maxpriceMet && size){
+        if(maxpriceMet && sizeMet){
           //If the highlight filter is present - change substrings in description accordingly
           if(filter.highlight){
             filter.highlight.forEach((hl) => {
