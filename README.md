@@ -15,9 +15,9 @@ To run in development mode:
 npm run-script dev
 ```
 
-To run unit-test:
+To run unit-test with jest:
 
 ```
-<npx jest>
+npx jest
 ```
 
