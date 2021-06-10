@@ -34,7 +34,7 @@ List of possible parameters:
 Parameter | Type | Description
 --------- | ---------- | -----------
 maxprice | Number | Takes a desired price to filter products by
-highlight | String (can have multiple values) |  Takes a set of words, seperated by comas, to highlight them in the description( ex. <em>WORD</em>)
+highlight | String (can have multiple values) |  Takes a set of words, seperated by comas, to highlight them in the description
 size | String | Takes a desired size to filter products by
 
 Example of a URL query:
