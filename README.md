@@ -1,4 +1,4 @@
-# techtask1
+# techtask
 Node.js REST API for filtering products
 
 ## Installation
