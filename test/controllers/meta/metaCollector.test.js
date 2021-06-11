@@ -54,5 +54,4 @@ describe("Testing meta-data collector", () => {
         expect(result.popularWords).toBeInstanceOf(Array)
         expect(result.popularWords.length === 10).toBe(true)
     })
-
 })

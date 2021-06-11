@@ -37,6 +37,7 @@ describe("Testing API-response filter", () => {
     resultPriceFiltered = filterProducts({maxprice: 10}, sampleData)
     resultSizeFiltered = filterProducts({size: 'large'}, sampleData)
     resultsFilteredByAll = filterProducts({maxprice: 10, size: 'large'}, sampleData)
+    resultsDescriptionCheck = filterProducts({highlight: "green,blue"}, sampleData)
 
     it("Filters by price", () => {
         let flag = true
@@ -52,7 +53,7 @@ describe("Testing API-response filter", () => {
         let flag = true
         resultSizeFiltered.products.forEach(item => {
             if(!item.sizes.includes('large')){
-                let flag = false
+                flag = false
             }
         })
         expect(flag).toBe(true)
@@ -62,8 +63,19 @@ describe("Testing API-response filter", () => {
         let flag = true
         resultsFilteredByAll.products.forEach(item => {
             if(!item.sizes.includes('large') && item.price > 10){
-                let flag = false
+                flag = false
             }
+        })
+        expect(flag).toBe(true)
+    })
+    it("Product highlights tested", () => {
+        let flag = true
+        resultsDescriptionCheck.products.forEach((product, index )=> {
+            ["green","blue"].forEach(hl => {
+                if(sampleData[index].description.split(" ").includes(`${hl}`) && !product.description.split(" ").includes(`<em>${hl}</em>`)){
+                    flag = false
+                }
+            })
         })
         expect(flag).toBe(true)
     })

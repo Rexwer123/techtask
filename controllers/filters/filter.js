@@ -10,11 +10,20 @@ module.exports = {
       }
 
       if(filter.highlight){ //if a highlight filter is present - do a conversion into an array
-        filter.highlight = filter.highlight.split(',') //highlight parameter can have multiple values, but is stored as string - converting into array
-      } 
+        let filterSplit = filter.highlight.split(',')
+      }
 
-      result.products = products.filter(pr => {
-        let product = Object.assign({}, pr) //Making a copy
+      result.products = products.filter(product => {
+        
+        if(filter.highlight){ //if a highlight filter is present - do a conversion into an array
+          let filterSplit = filter.highlight.split(',')  //highlight parameter can have multiple values, but is stored as string - converting into array
+          filterSplit.forEach((hl) => {
+            if(product.description.split(" ").includes(hl)){
+              product.description = product.description.replace(hl, `<em>${hl}</em>`)
+             
+            }
+          })
+        } 
 
         //Dynamically generated logical expressions to be able to handle all possible filter's combinations at once, which decreases the complexity of this function
         const maxpriceMet = filter.maxprice ? product.price <= filter.maxprice : true
@@ -22,17 +31,9 @@ module.exports = {
           
         if(maxpriceMet && sizeMet){
           //If the highlight filter is present - change substrings in description accordingly
-          if(filter.highlight){
-            filter.highlight.forEach((hl) => {
-              if(product.description.split(" ").includes(hl)){
-                product.description = product.description.replace(hl, `<em>${hl}</em>`)
-              }
-            })
-          }
           return true
         }
       })
-
       return result
     }else{
       return {
