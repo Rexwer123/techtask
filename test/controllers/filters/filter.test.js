@@ -1,5 +1,3 @@
-const metaCollector = require("../../../controllers/meta/metaCollector")
-const { getProductsModel } = require("../../../models/productsModel")
 const { filterProducts } = require("../../../controllers/filters/filter")
 
 
@@ -8,25 +6,37 @@ describe("Testing API-response filter", () => {
     let resultPriceFiltered
     let resultSizeFiltered
     let resultSizeFilteredByAll
-     
+    
+    let sampleData =  [
+        {
+            name: 'Trousers',
+            sizes: ['large', 'small'],
+            price: 30,
+            description: 'Cool blue trousers'
+        },
+        {
+            name: 'T-Shirt',
+            sizes: ['small'],
+            price: 10,
+            description: 'Cool blue t-shirt'
+        },
+        {
+            name: 'Trousers',
+            sizes: ['large', 'small'],
+            price: 10,
+            description: 'Cool green trousers'
+        },
+        {
+            name: 'Hoodie',
+            sizes: ['large', 'small', 'medium'],
+            price: 10,
+            description: 'Cool black hoodie'
+        }
+    ]
 
-    beforeAll(async () => {
-        APIResponse = await getProductsModel()
-        resultPriceFiltered = filterProducts({maxprice: 10}, APIResponse)
-        resultSizeFiltered = filterProducts({size: 'large'}, APIResponse)
-        resultsFilteredByAll = filterProducts({maxprice: 10, size: 'large'}, APIResponse)
-    })
-
-    it("Filter returns an object with required attributes", () => {
-        expect(resultPriceFiltered).toBeInstanceOf(Object)
-        expect(resultPriceFiltered).toHaveProperty("productsRaw")
-        expect(resultPriceFiltered).toHaveProperty("products")
-        expect(resultPriceFiltered).toHaveProperty("maxPrice")
-        expect(resultPriceFiltered).toHaveProperty("minPrice")
-        expect(resultPriceFiltered).toHaveProperty("sizes")
-        expect(resultPriceFiltered).toHaveProperty("popularWords")
-        expect(resultPriceFiltered.popularWords.length === 10).toBe(true)
-    })
+    resultPriceFiltered = filterProducts({maxprice: 10}, sampleData)
+    resultSizeFiltered = filterProducts({size: 'large'}, sampleData)
+    resultsFilteredByAll = filterProducts({maxprice: 10, size: 'large'}, sampleData)
 
     it("Filters by price", () => {
         let flag = true
@@ -50,15 +60,11 @@ describe("Testing API-response filter", () => {
 
     it("Object Successfully filters by all parameters", () => {
         let flag = true
-        resultSizeFiltered.products.forEach(item => {
+        resultsFilteredByAll.products.forEach(item => {
             if(!item.sizes.includes('large') && item.price > 10){
                 let flag = false
             }
         })
         expect(flag).toBe(true)
-    })
-
-    afterAll(done => {
-        done()
     })
 })

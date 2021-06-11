@@ -8,6 +8,8 @@ module.exports = {
             request(APIConfig.productsEndpoint, {json: true}, (error, response, body) => {
                 if(error){
                     return reject(error)
+                }else if(body.products === undefined || body.products === null){
+                    return reject('Products are missing in the API response')
                 }
                 return resolve(body.products)
             })

@@ -7,10 +7,9 @@ module.exports = {
     getProductsController: (req, res) => {
         getProductsModel()
             .then(products => {
-                if(req.query.highlight){ //if a highlight filter is present - do a conversion into an array
-                    req.query.highlight = req.query.highlight.split(',') //highlight parameter can have multiple values, but is stored as string - converting into array
-                } 
-                return res.send(filterProducts(req.query, products))
+                let query = Object.assign({}, req.query) //Makign a copy
+                
+                return res.send(filterProducts(query, products))
                 
             })
             .catch(err => {

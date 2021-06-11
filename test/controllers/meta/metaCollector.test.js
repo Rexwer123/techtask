@@ -4,12 +4,34 @@ const { getProductsModel } = require("../../../models/productsModel")
 
 
 describe("Testing meta-data collector", () => {
-    let result //Storing the result of pre-test request to API
-
-    beforeAll(async () => {
-        APIResponse = await getProductsModel()
-        result = metaCollector(APIResponse)
-    })
+    let products = [
+            {
+                name: 'Trousers',
+                sizes: ['large', 'small'],
+                price: 30,
+                description: 'Cool blue trousers with an awesome belt'
+            },
+            {
+                name: 'T-Shirt',
+                sizes: ['small'],
+                price: 10,
+                description: 'Nice blue t-shirt comes with a cool print'
+            },
+            {
+                name: 'Sneakers',
+                sizes: ['large', 'small'],
+                price: 10,
+                description: 'Cool green trousers with colorful laces'
+            },
+            {
+                name: 'Hoodie',
+                sizes: ['large', 'small', 'medium'],
+                price: 10,
+                description: 'Cool black hoodie'
+            }
+    ]
+    
+    let result = metaCollector(products) //Storing the result of pre-test request to API
 
     it("Returns an object", () => {
         expect(result).toBeInstanceOf(Object)
@@ -33,7 +55,4 @@ describe("Testing meta-data collector", () => {
         expect(result.popularWords.length === 10).toBe(true)
     })
 
-    afterAll(done => {
-        done()
-    })
 })
