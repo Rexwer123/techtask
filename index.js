@@ -20,5 +20,3 @@ app.listen(serverConfig.port, () => {
     console.clear()
     console.log(`[OK] Server running on port ${serverConfig.port}`)
 })
-
-module.exports = app
